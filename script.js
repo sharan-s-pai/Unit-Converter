@@ -24,7 +24,7 @@ let addSelect = () => {
         <option value="inch">inch</option>
     </select></section>`;    
     sideBar.innerHTML += section;
-    console.log(i);
+    //console.log(i);
   }else{
       return 0;
   }
@@ -36,7 +36,7 @@ let removeSelect = ()=>{
         return 0;
     }
     i--;
-    console.log(i);
+    //console.log(i);
     let select = document.getElementById(`output-${i}`)
     select.remove();
     
