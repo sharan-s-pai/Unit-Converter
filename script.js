@@ -8,7 +8,7 @@ let options = ["centimeter", "meter", "kilometer", "feet", "inches"];
 //     addSelect();
 // });
 
-let sideBar = document.getElementById("sideNav");
+let sideBar = document.getElementById("innerNav");
 let i = 1;
 let addSelect = () => {
   if (i <= options.length) {
@@ -21,7 +21,7 @@ let addSelect = () => {
         <option value="inch">inch</option>
     </select>`;    
     sideBar.innerHTML += select;
-    
+
   }else{
       return 0;
   }
