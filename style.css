@@ -1,0 +1,12 @@
+.sideNav{
+    height:100%;
+    width: 200px;
+    position: fixed;
+    padding: 10px;
+    top:0;
+    right: 0;
+    z-index: 1;
+    background-color: #3f2a11; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
