@@ -6,9 +6,13 @@ let input = document.getElementById("input");
 
 let options = ["centimeter", "meter", "kilometer", "feet", "inches"];
 
-// plusButton.addEventListener("click",(e)=>{
-//     addSelect();
-// });
+let output1=document.getElementById("output1");
+
+let optionsConvert = [output1];
+
+let outputdiv=document.getElementById("outputText");
+
+let form = document.getElementById("input-form");
 
 let sideBar = document.getElementById("innerNav");
 let i = 2;
@@ -22,22 +26,60 @@ let addSelect = () => {
         <option value="km">kilometer</option>
         <option value="ft">feet</option>
         <option value="inch">inch</option>
-    </select></section>`;    
+    </select></section>`;
     sideBar.innerHTML += section;
-    //console.log(i);
-  }else{
-      return 0;
+    optionsConvert(document.getElementById(`output${i}`));
+    console.log(optionsConvert);
+  } else {
+    return 0;
   }
   i++;
 };
 
-let removeSelect = ()=>{
-    if(i<3){
-        return 0;
+let removeSelect = () => {
+  if (i < 3) {
+    return 0;
+  }
+  i--;
+  //console.log(i);
+  let select = document.getElementById(`output-${i}`);
+  select.remove();
+  optionsConvert.pop();
+  console.log(optionsConvert);
+};
+let inputNum = document.getElementById("num-input");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let value = inputNum.value;
+  optionsConvert.forEach((option) => {
+    if (input.value !== option.value) {
+      console.log(option);
+      if (option.value === "cm") {
+        console.log(value);
+        cmConversion(value);
+      }
     }
-    i--;
-    //console.log(i);
-    let select = document.getElementById(`output-${i}`)
-    select.remove();
-    
+  });
+});
+let cmConversion=(value)=>{
+  let output;
+  if(input.value==="km"){
+    output=value*100000;
+  }else if(input.value==="m"){
+    output=value*100;
+  }else if(input.value==="ft"){
+    output=value*0.0328084;
+  }else if(input.value==="inch"){
+    output=value*0.3937008;
+  }else{
+    output=value;
+  }
+  printScreen(output.toLocaleString('en-IN'),"cm");
 }
+
+let printScreen=(output,type)=>{
+  let text=document.createElement('section');
+  text.innerHTML=`<h3>${output} ${type}`;
+  outputdiv.appendChild(text);
+}
+

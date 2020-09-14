@@ -10,3 +10,10 @@
   overflow-x: hidden; 
   padding-top: 20px;
 }
+
+
+.container{
+  padding-top: 20px;
+  width:380px;
+  position : relative;
+}
