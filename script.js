@@ -52,7 +52,7 @@ let removeSelect = () => {
   optionsConvert.pop();
   console.log(optionsConvert);
 };
-
+let j=0;
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   let value = inputNum.value;
@@ -66,6 +66,7 @@ form.addEventListener("submit", (e) => {
         console.log(inputValue);
         cmConversion(value,inputValue);
       }else if (optionValue === "km") {
+        console.log(value);
         console.log(optionValue);
         console.log(inputValue);
         kmConversion(value,inputValue);
@@ -84,9 +85,7 @@ form.addEventListener("submit", (e) => {
       }
     // }
   });
-  submit.disabled=true;
-  inputNum.disabled=true;
-
+  j++;
 });
 
 clear.addEventListener("click",(e)=>{
@@ -94,6 +93,7 @@ clear.addEventListener("click",(e)=>{
   inputNum.disabled=false;
   submit.disabled=false;
   inputNum.value="";
+  j=0;
 })
 
 let cmConversion=(value,inputValue)=>{
@@ -117,7 +117,7 @@ let kmConversion=(value,inputValue)=>{
   if(inputValue==="cm"){
     output=value/100000;
   }else if(inputValue==="m"){
-    output=value/100;
+    output=value/1000;
   }else if(inputValue==="ft"){
     output=value/3280.84;
   }else if(inputValue==="inch"){
@@ -177,7 +177,9 @@ let inchConversion=(value,inputValue)=>{
 }
 
 let printScreen=(output,type)=>{
-  
+  if(j>=1){
+    outputdiv.innerHTML="";
+  }
   let text=document.createElement('section');
   text.innerHTML=`<h3>${output} ${type}`;
   outputdiv.appendChild(text);
@@ -189,3 +191,6 @@ let appendScreen=(output,type)=>{
   outputdiv.innerHTML+=text;
 }
 
+//appending the output when multiple inputs are given
+
+//any change made in input option must be reflected while submission
