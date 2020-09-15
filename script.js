@@ -13,6 +13,11 @@ let optionsConvert = [output1];
 let outputdiv=document.getElementById("outputText");
 
 let form = document.getElementById("input-form");
+let inputNum = document.getElementById("num-input");
+
+let submit=document.getElementById("submit");
+
+let clear=document.getElementById("clear");
 
 let sideBar = document.getElementById("innerNav");
 let i = 2;
@@ -47,45 +52,59 @@ let removeSelect = () => {
   optionsConvert.pop();
   console.log(optionsConvert);
 };
-let inputNum = document.getElementById("num-input");
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   let value = inputNum.value;
-  optionsConvert.forEach((option) => {
-    if (input.value !== option.value) {
-      if (option.value === "cm") {
-        console.log(input.value);
-        console.log(option.value);
-        cmConversion(value);
-      }else if (option.value === "km") {
-        console.log(input.value);
-        console.log(option.value);
-        kmConversion(value);
-      }else if (option.value === "m") {
-        console.log(option.value);
-        console.log(input.value);
-        mConversion(value);
-      }else if (option.value === "ft") {
-        console.log(option.value);
-        console.log(input.value);
-        feetConversion(value);
-      }else if (option.value === "inch") {
-        console.log(option.value);
-        console.log(input.value);
-        inchConversion(value);
+  let inputValue=input.selectedOptions[0].value;
+  optionsConvert.forEach((option)=>{
+    console.log(option);
+    let optionValue=option.selectedOptions[0].value;
+    // if (inputValue !== optionValue) {
+      if (optionValue === "cm") {
+        console.log(optionValue);
+        console.log(inputValue);
+        cmConversion(value,inputValue);
+      }else if (optionValue === "km") {
+        console.log(optionValue);
+        console.log(inputValue);
+        kmConversion(value,inputValue);
+      }else if (optionValue === "m") {
+        console.log(optionValue);
+        console.log(inputValue);
+        mConversion(value,inputValue);
+      }else if (optionValue === "ft") {
+        console.log(optionValue);
+        console.log(inputValue);
+        feetConversion(value,inputValue);
+      }else if (optionValue === "inch") {
+        console.log(optionValue);
+        console.log(inputValue);
+        inchConversion(value,inputValue);
       }
-    }
+    // }
   });
+  submit.disabled=true;
+  inputNum.disabled=true;
+
 });
-let cmConversion=(value)=>{
+
+clear.addEventListener("click",(e)=>{
+  outputdiv.innerHTML="";
+  inputNum.disabled=false;
+  submit.disabled=false;
+  inputNum.value="";
+})
+
+let cmConversion=(value,inputValue)=>{
   let output;
-  if(input.value==="km"){
+  if(inputValue==="km"){
     output=value*100000;
-  }else if(input.value==="m"){
+  }else if(inputValue==="m"){
     output=value*100;
-  }else if(input.value==="ft"){
+  }else if(inputValue==="ft"){
     output=value/0.0328084;
-  }else if(input.value==="inch"){
+  }else if(inputValue==="inch"){
     output=value/0.3937008;
   }else{
     output=value;
@@ -93,15 +112,15 @@ let cmConversion=(value)=>{
   printScreen(output.toLocaleString('en-IN'),"cm");
 }
 
-let kmConversion=(value)=>{
+let kmConversion=(value,inputValue)=>{
   let output;
-  if(input.value==="cm"){
+  if(inputValue==="cm"){
     output=value/100000;
-  }else if(input.value==="m"){
+  }else if(inputValue==="m"){
     output=value/100;
-  }else if(input.value==="ft"){
+  }else if(inputValue==="ft"){
     output=value/3280.84;
-  }else if(input.value==="inch"){
+  }else if(inputValue==="inch"){
     output=value/39370.08;
   }else{
     output=value;
@@ -109,15 +128,15 @@ let kmConversion=(value)=>{
   printScreen(output.toLocaleString('en-IN'),"km");
 }
 
-let mConversion=(value)=>{
+let mConversion=(value,inputValue)=>{
   let output;
-  if(input.value==="km"){
+  if(inputValue==="km"){
     output=value*1000;
-  }else if(input.value==="cm"){
+  }else if(inputValue==="cm"){
     output=value/100;
-  }else if(input.value==="ft"){
+  }else if(inputValue==="ft"){
     output=value*3.28084;
-  }else if(input.value==="inch"){
+  }else if(inputValue==="inch"){
     output=value*39.37008;
   }else{
     output=value;
@@ -125,15 +144,15 @@ let mConversion=(value)=>{
   printScreen(output.toLocaleString('en-IN'),"m");
 }
 
-let feetConversion=(value)=>{
+let feetConversion=(value,inputValue)=>{
   let output;
-  if(input.value==="km"){
+  if(inputValue==="km"){
     output=value*3280.84;
-  }else if(input.value==="m"){
+  }else if(inputValue==="m"){
     output=value*3.28084;
-  }else if(input.value==="cm"){
+  }else if(inputValue==="cm"){
     output=value*0.0328084;
-  }else if(input.value==="inch"){
+  }else if(inputValue==="inch"){
     output=value/12;
   }else{
     output=value;
@@ -141,15 +160,15 @@ let feetConversion=(value)=>{
   printScreen(output.toLocaleString('en-IN'),"feet");
 }
 
-let inchConversion=(value)=>{
+let inchConversion=(value,inputValue)=>{
   let output;
-  if(input.value==="km"){
+  if(inputValue==="km"){
     output=value*39370.08;
-  }else if(input.value==="m"){
+  }else if(inputValue==="m"){
     output=value*39.37008;
-  }else if(input.value==="cm"){
+  }else if(inputValue==="cm"){
     output=value*0.3937008;
-  }else if(input.value==="ft"){
+  }else if(inputValue==="ft"){
     output=value*12;
   }else{
     output=value;
@@ -158,8 +177,15 @@ let inchConversion=(value)=>{
 }
 
 let printScreen=(output,type)=>{
+  
   let text=document.createElement('section');
   text.innerHTML=`<h3>${output} ${type}`;
   outputdiv.appendChild(text);
+}
+
+let appendScreen=(output,type)=>{
+  let text=document.createElement('section');
+  text.innerHTML=`<h3>${output} ${type}`;
+  outputdiv.innerHTML+=text;
 }
 
